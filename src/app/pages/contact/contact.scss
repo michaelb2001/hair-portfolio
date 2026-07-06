@@ -1,0 +1,49 @@
+.contact {
+  padding: 100px 20px;
+  background: #0f0f0f;
+  color: white;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.header h1 {
+  font-size: 48px;
+}
+
+form {
+  max-width: 600px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input, textarea {
+  padding: 14px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+}
+
+textarea {
+  min-height: 120px;
+  resize: none;
+}
+
+button {
+  padding: 14px;
+  background: #25D366;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.03);
+}

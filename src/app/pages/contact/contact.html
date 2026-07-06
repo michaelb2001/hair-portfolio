@@ -1,0 +1,22 @@
+<section class="contact">
+
+  <div class="header">
+    <h1>Contattaci</h1>
+    <p>Prenota il tuo appuntamento in pochi secondi</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="send()">
+
+    <input formControlName="name" placeholder="Nome" />
+
+    <input formControlName="phone" placeholder="Telefono" />
+
+    <textarea formControlName="message" placeholder="Messaggio"></textarea>
+
+    <button type="submit">
+      Invia su WhatsApp
+    </button>
+
+  </form>
+
+</section>

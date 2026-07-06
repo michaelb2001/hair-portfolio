@@ -1,0 +1,30 @@
+<section class="gallery">
+
+  <div class="header">
+    <h1>I nostri lavori</h1>
+    <p>Trasformazioni reali, risultati concreti</p>
+  </div>
+
+  <div class="grid">
+
+    <img
+      *ngFor="let img of images; let i = index"
+      [src]="img"
+      (click)="open(i)"
+      alt="hair work"
+    />
+
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" *ngIf="selectedIndex >=0" (click)="close()">
+
+    <button class="nav left" (click)="prev($event)">‹</button>
+
+    <img [src]="images[selectedIndex]" alt="selected" />
+
+    <button class="nav right" (click)="next($event)">›</button>
+
+  </div>
+
+</section>
