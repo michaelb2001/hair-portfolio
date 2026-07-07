@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AppointmentService } from '../../core/services/appointment.service';
+import { Appointment } from '../../core/models/appointment.model';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { AppointmentService } from '../../core/services/appointment.service';
   templateUrl: './booking.html',
   styleUrl: './booking.scss'
 })
-export class Booking {
+export class Booking implements OnInit {
 
   private appointmentService = inject(AppointmentService);
   selectedDate: string = '';
@@ -37,6 +38,27 @@ export class Booking {
   name = '';
   email = '';
   phone = '';
+
+
+  appointments : Appointment[] = [];
+  
+
+  ngOnInit() {
+
+  this.appointmentService
+    .getAll()
+    .subscribe(data => {
+
+      this.appointments = data;
+
+      console.log(
+        'Appuntamenti:',
+        this.appointments
+      );
+
+    });
+
+}
 
   selectDate(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -90,6 +112,16 @@ submitAppointment() {
       }
 
     });
+
+}
+
+isTimeAvailable(time: string): boolean {
+
+  return !this.appointments.some(
+    appointment =>
+      appointment.date === this.selectedDate &&
+      appointment.time === time
+  );
 
 }
 }
