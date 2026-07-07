@@ -7,6 +7,8 @@ import { Gallery } from './pages/gallery/gallery';
 import { Reviews } from './pages/reviews/reviews';
 import { Contact } from './pages/contact/contact';
 
+import { Booking } from './pages/booking/booking';
+
 export const routes: Routes = [
   {
     path: '',
@@ -31,5 +33,9 @@ export const routes: Routes = [
   {
     path: 'contatti',
     component: Contact
+  },
+  {
+    path: 'booking',
+    component: Booking
   }
 ];
