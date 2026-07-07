@@ -1,46 +1,192 @@
 <section class="booking">
 
-    <h1>Prenota il tuo appuntamento</h1>
 
-    <div class="calendar">
+  <h1>
+    Prenota il tuo appuntamento
+  </h1>
 
-        <label>
-            Seleziona giorno
-        </label>
 
-        <input type="date" (change)="selectDate($event)" />
+
+  <!-- CALENDARIO -->
+
+  <div class="calendar">
+
+
+    <div class="calendar-header">
+
+
+      <button
+        type="button"
+        (click)="previousMonth()">
+        ‹
+      </button>
+
+
+
+      <h2>
+        {{ months[currentMonth] }}
+        {{ currentYear }}
+      </h2>
+
+
+
+      <button
+        type="button"
+        (click)="nextMonth()">
+        ›
+      </button>
+
+
+    </div>
+
+
+
+
+
+    <div class="week-days">
+
+
+      <span
+        *ngFor="let day of weekDays">
+
+        {{ day }}
+
+      </span>
+
 
     </div>
 
 
-    <div class="times">
-
-        <h2>Scegli orario</h2>
-
-        <button *ngFor="let time of availableTimes" type="button" (click)="selectTime(time)"
-            [disabled]="!isTimeAvailable(time)" [class.active]="selectedTime === time">
-            {{ time }}
-        </button>
-
-    </div>
 
 
-    <div class="form">
 
-        <input placeholder="Nome" [(ngModel)]="name" />
-
-
-        <input placeholder="Email" [(ngModel)]="email" />
+    <div class="days">
 
 
-        <input placeholder="Telefono" [(ngModel)]="phone" />
+      <button
+        type="button"
 
+        *ngFor="let day of calendarDays"
 
-        <button type="button" (click)="submitAppointment()">
-            Richiedi appuntamento
-        </button>
+        [disabled]="!day"
+
+        (click)="selectDay(day)"
+
+        [class.selected]="isSelectedDay(day)"
+
+      >
+
+        {{ day }}
+
+      </button>
+
 
     </div>
+
+
+  </div>
+
+
+
+
+
+  <!-- ORARI -->
+
+
+  <div class="times">
+
+
+    <h2>
+      Scegli orario
+    </h2>
+
+
+
+    <button
+
+      type="button"
+
+      *ngFor="let time of availableTimes"
+
+      (click)="selectTime(time)"
+
+      [disabled]="
+        !selectedDate ||
+        !isTimeAvailable(time)
+      "
+
+      [class.active]="
+        selectedTime === time
+      "
+
+    >
+
+      {{ time }}
+
+    </button>
+
+
+  </div>
+
+
+
+
+
+  <!-- FORM -->
+
+
+  <div class="form">
+
+
+    <input
+      type="text"
+      placeholder="Nome"
+      [(ngModel)]="name"
+    />
+
+
+
+    <input
+      type="email"
+      placeholder="Email"
+      [(ngModel)]="email"
+    />
+
+
+
+    <input
+      type="tel"
+      placeholder="Telefono"
+      [(ngModel)]="phone"
+    />
+
+
+
+
+
+    <button
+
+      type="button"
+
+      (click)="submitAppointment()"
+
+      [disabled]="
+        !selectedDate ||
+        !selectedTime ||
+        !name ||
+        !email ||
+        !phone
+      "
+
+    >
+
+      Richiedi appuntamento
+
+    </button>
+
+
+
+  </div>
 
 
 </section>

@@ -10,7 +10,7 @@ export class AppointmentService {
 
   private http = inject(HttpClient);
 
-  private readonly apiUrl = 'http://localhost:3000/appointments';
+  private readonly apiUrl = 'https://be-hair-portfolio.onrender.com';
 
   create(data: Appointment): Observable<any> {
     return this.http.post(this.apiUrl, data);
