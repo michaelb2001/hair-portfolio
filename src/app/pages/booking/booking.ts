@@ -40,25 +40,25 @@ export class Booking implements OnInit {
   phone = '';
 
 
-  appointments : Appointment[] = [];
-  
+  appointments: Appointment[] = [];
+
 
   ngOnInit() {
 
-  this.appointmentService
-    .getAll()
-    .subscribe(data => {
+    this.appointmentService
+      .getAll()
+      .subscribe(data => {
 
-      this.appointments = data;
+        this.appointments = data;
 
-      console.log(
-        'Appuntamenti:',
-        this.appointments
-      );
+        console.log(
+          'Appuntamenti:',
+          this.appointments
+        );
 
-    });
+      });
 
-}
+  }
 
   selectDate(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -69,59 +69,70 @@ export class Booking implements OnInit {
     this.selectedTime = time;
   }
 
-submitAppointment() {
+  submitAppointment() {
 
-  const appointment = {
-    name: this.name,
-    email: this.email,
-    phone: this.phone,
-    date: this.selectedDate,
-    time: this.selectedTime
-  };
-
-
-  this.appointmentService
-    .create(appointment)
-    .subscribe({
-
-      next: (response) => {
-
-        console.log(
-          'Appuntamento inviato:',
-          response
-        );
-
-        alert(
-          'Richiesta appuntamento inviata!'
-        );
-
-      },
+    const appointment = {
+      name: this.name,
+      email: this.email,
+      phone: this.phone,
+      date: this.selectedDate,
+      time: this.selectedTime
+    };
 
 
-      error: (error) => {
+    this.appointmentService
+      .create(appointment)
+      .subscribe({
 
-        console.error(
-          'Errore:',
-          error
-        );
+        next: (response) => {
 
-        alert(
-          'Errore invio appuntamento'
-        );
+          console.log(
+            'Appuntamento inviato:',
+            response
+          );
 
-      }
+          alert(
+            'Richiesta appuntamento inviata!'
+          );
 
-    });
+        },
 
-}
 
-isTimeAvailable(time: string): boolean {
+        error: (error) => {
 
-  return !this.appointments.some(
-    appointment =>
-      appointment.date === this.selectedDate &&
-      appointment.time === time
-  );
+          console.error(error);
 
-}
+
+          if (error.status === 409) {
+
+            alert(
+              'Questo orario è già stato prenotato'
+            );
+
+          } else {
+
+            alert(
+              'Errore durante la prenotazione'
+            );
+          }
+
+          alert(
+            'Errore invio appuntamento'
+          );
+
+        }
+
+      });
+
+  }
+
+  isTimeAvailable(time: string): boolean {
+
+    return !this.appointments.some(
+      appointment =>
+        appointment.date === this.selectedDate &&
+        appointment.time === time
+    );
+
+  }
 }
